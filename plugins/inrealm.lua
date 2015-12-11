@@ -7,13 +7,13 @@ local function create_group(msg)
         if is_sudo(msg) or is_realm(msg) and is_admin(msg) then
                 local group_creator = msg.from.print_name
         create_group_chat (group_creator, group_name, ok_cb, false)
-                return 'Group '..string.gsub(group_name, '_', ' ')..' has been created.'
+                return 'Group '..string.gsub(group_name, '_', ' ')..' sakhte Shod!.'
         end
 end
  
 local function set_description(msg, data, target, about)
     if not is_admin(msg) then
-        return "For admins only!"
+        return "فقط برای ادمین ها!"
     end
     local data_cat = 'description'
         data[tostring(target)][data_cat] = about
@@ -23,7 +23,7 @@ end
  
 local function set_rules(msg, data, target)
     if not is_admin(msg) then
-        return "For admins only!"
+        return "فقط برای ادمین ها!"
     end
     local data_cat = 'rules'
         data[tostring(target)][data_cat] = rules
@@ -33,47 +33,47 @@ end
 -- lock/unlock group name. bot automatically change group name when locked
 local function lock_group_name(msg, data, target)
     if not is_admin(msg) then
-        return "For admins only!"
+        return "فقط برای ادمین ها!!"
     end
     local group_name_set = data[tostring(target)]['settings']['set_name']
     local group_name_lock = data[tostring(target)]['settings']['lock_name']
         if group_name_lock == 'yes' then
-            return 'Group name is already locked'
+            return 'اسم گروه اکنون قفل است'
         else
             data[tostring(target)]['settings']['lock_name'] = 'yes'
                 save_data(_config.moderation.data, data)
                 rename_chat('chat#id'..target, group_name_set, ok_cb, false)
-        return 'Group name has been locked'
+        return 'اسم گروه قفل شد!'
         end
 end
  
 local function unlock_group_name(msg, data, target)
     if not is_admin(msg) then
-        return "For admins only!"
+        return "فقط برای ادمین ها!"
     end
     local group_name_set = data[tostring(target)]['settings']['set_name']
     local group_name_lock = data[tostring(target)]['settings']['lock_name']
         if group_name_lock == 'no' then
-            return 'Group name is already unlocked'
+            return 'اسم گروه اکنون قفل است'
         else
             data[tostring(target)]['settings']['lock_name'] = 'no'
             save_data(_config.moderation.data, data)
-        return 'Group name has been unlocked'
+        return 'اسم گروه باز شد'
         end
 end
 --lock/unlock group member. bot automatically kick new added user when locked
 local function lock_group_member(msg, data, target)
     if not is_admin(msg) then
-        return "For admins only!"
+        return "فقط برای ادمین ها!"
     end
     local group_member_lock = data[tostring(target)]['settings']['lock_member']
         if group_member_lock == 'yes' then
-            return 'Group members are already locked'
+            return 'اعضای گروه قفل شد'
         else
             data[tostring(target)]['settings']['lock_member'] = 'yes'
             save_data(_config.moderation.data, data)
         end
-        return 'Group members has been locked'
+        return 'اعضای گروه قفل شد'
 end
  
 local function unlock_group_member(msg, data, target)
